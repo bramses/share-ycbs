@@ -13,13 +13,22 @@ async function getData(entryid: string) {
   return data;
 }
 
-export default async function Page({ params }: { params: { entryid: string } }) {
-  const data = await getData(params.entryid);
+type Params = {
+    entryid: string;
+  };
+  
+  type PageProps = {
+    params: Promise<Params>;
+  };
+
+export default async function Page({ params }: PageProps) {
+    const resolvedParams = await params;
+  const data = await getData(resolvedParams.entryid);
 
   // data.json is what you stored in supabase
   return (
     <div>
-      <h1>Graph for {params.entryid}</h1>
+      <h1>Graph for {resolvedParams.entryid}</h1>
       <ForceDirectedGraph data={data.json.data}/>
     </div>
   );
