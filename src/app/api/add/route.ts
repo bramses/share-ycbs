@@ -6,7 +6,15 @@ export async function POST(req: Request) {
   const body = await req.json();
   // expects { userid, entryid, json }
   const { userid, entryid, json, username } = body;
-  if (!userid || !entryid || !json || !username) return NextResponse.json({ error: 'missing required fields' }, { status: 400 });
+  if (!userid || !entryid || !json || !username) {
+    return new Response(JSON.stringify({ error: 'missing required fields' }), {
+      status: 400,
+      headers: {
+        'Access-Control-Allow-Origin': 'http://localhost:3000', // Allow requests from this origin
+        'Content-Type': 'application/json',
+      },
+    });
+  }
   
   const replaced = await replaceImages(json);
   const { data, error } = await supabase.from(process.env.NEXT_PUBLIC_SUPABASE_TABLE_NAME!).insert([
@@ -17,6 +25,19 @@ export async function POST(req: Request) {
       username,
     },
   ]);
-  if (error) return NextResponse.json({ error }, { status: 500 });
-  return NextResponse.json({ data });
+  if (error) {
+    return new Response(JSON.stringify({ error }), {
+      status: 500,
+      headers: {
+        'Access-Control-Allow-Origin': 'http://localhost:3000', // Allow requests from this origin
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+  return new Response(JSON.stringify({ data }), {
+    headers: {
+      'Access-Control-Allow-Origin': 'http://localhost:3000', // Allow requests from this origin
+      'Content-Type': 'application/json',
+    },
+  });
 }
