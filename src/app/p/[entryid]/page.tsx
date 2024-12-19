@@ -33,8 +33,8 @@ export default async function Page({ params }: PageProps) {
   return (
     <div>
       <h1>
-        <Link href={`/${data.user_id}`} className="underline" prefetch={false}>
-          See all of {data.user_id}&apos;s entries
+        <Link href={`/${data.username}`} className="underline" prefetch={false}>
+          See all of {data.username}&apos;s entries
         </Link>
       </h1>
       <h1>Make your own knowledge graph</h1>

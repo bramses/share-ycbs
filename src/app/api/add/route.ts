@@ -18,8 +18,8 @@ export async function POST(req: Request) {
   const replaced = await replaceImages(json);
   const { data, error } = await supabase.from(process.env.NEXT_PUBLIC_SUPABASE_TABLE_NAME!).insert([
     {
-      userid,
-      entryid,
+      "user_id": userid,
+      "entry_id": entryid,
       json: { "data": replaced, "type": "graph" },
       username,
     },

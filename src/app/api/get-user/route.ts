@@ -3,7 +3,7 @@ import { supabase } from '@/lib/supabase';
 
 export async function GET(req: Request) {
     const url = new URL(req.url);
-    const username = url.searchParams.get('username'); // Extract the username from the query parameters
+    const username = url.searchParams.get('username')?.toLowerCase(); // Extract the username from the query parameters
     if (!username) return NextResponse.json({ error: 'username required' }, { status: 400 });
   console.log(username);
 
