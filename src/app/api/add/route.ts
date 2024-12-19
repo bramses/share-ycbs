@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     {
       userid,
       entryid,
-      json: replaced,
+      json: { "data": replaced, "type": "graph" },
       username,
     },
   ]);
