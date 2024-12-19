@@ -389,8 +389,18 @@ const ForceDirectedGraph = ({ data }) => {
   }, [data]);
 
   return (
-    <div ref={containerRef} style={{ width: '100%', margin: '0 auto' }}>
-      <svg ref={svgRef} />
+    <div ref={containerRef} style={{
+      width: '100vw',
+      height: '100vh',
+      margin: '0',
+      padding: '0',
+      overflow: 'hidden',
+    }}>
+      <svg ref={svgRef} style={{
+      display: 'block',
+      width: '100%',
+      height: '100%',
+    }}/>
       <Modal
         isOpen={showModal}
         onRequestClose={closeModal}
