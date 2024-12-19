@@ -11,7 +11,7 @@ async function getData(entryid: string) {
     }
   );
   if (!res.ok) {
-    throw new Error("failed to fetch data");
+    throw new Error("failed to fetch data"); // todo: should 404 here
   }
   const { data } = await res.json();
   return data;
