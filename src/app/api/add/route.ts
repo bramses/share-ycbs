@@ -3,9 +3,9 @@ import { replaceImages } from '@/utils/replaceImages';
 
 export async function POST(req: Request) {
   const body = await req.json();
-  // expects { userid, entryid, json }
-  const { userid, entryid, json, username } = body;
-  if (!userid || !entryid || !json || !username) {
+  // expects {  entryid, json }
+  const {  entryid, json, username } = body;
+  if (!entryid || !json || !username) {
     return new Response(JSON.stringify({ error: 'missing required fields' }), {
       status: 400,
       headers: {
@@ -18,7 +18,6 @@ export async function POST(req: Request) {
   const replaced = await replaceImages(json);
   const { data, error } = await supabase.from(process.env.NEXT_PUBLIC_SUPABASE_TABLE_NAME!).insert([
     {
-      "user_id": userid,
       "entry_id": entryid,
       json: { "data": replaced, "type": "graph" },
       username,
