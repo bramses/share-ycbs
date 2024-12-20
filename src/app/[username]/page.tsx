@@ -34,9 +34,9 @@ export default async function Page({ params }: PageProps) {
     <div>
       <h1>All entries for {resolvedParams.username}</h1>
       {data.map((entry: any) => (
-        <div key={entry.id}>
+        <div key={entry.entry_id}>
           <h2>
-            <Link href={`/p/${entry.id}`} className="underline" prefetch={false}>
+            <Link href={`/p/${entry.entry_id}`} className="underline" prefetch={false}>
               {entry.json.data.entry}
             </Link>
           </h2>

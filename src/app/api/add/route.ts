@@ -1,5 +1,4 @@
 import { supabase } from '@/lib/supabase';
-import { replaceImages } from '@/utils/replaceImages';
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -23,7 +22,7 @@ export async function POST(req: Request) {
       username,
     },
   ], {
-    onConflict: 'entry_id' // Concatenate column names into a single string
+    onConflict: 'entry_id', // Concatenate column names into a single string
   });
   if (error) {
     return new Response(JSON.stringify({ error }), {
