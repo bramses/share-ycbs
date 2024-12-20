@@ -16,13 +16,15 @@ export async function POST(req: Request) {
   }
   
   // const replaced = await replaceImages(json);
-  const { data, error } = await supabase.from(process.env.NEXT_PUBLIC_SUPABASE_TABLE_NAME!).insert([
+  const { data, error } = await supabase.from(process.env.NEXT_PUBLIC_SUPABASE_TABLE_NAME!).upsert([
     {
       "entry_id": entryid,
       json: { "data": json, "type": "graph" },
       username,
     },
-  ]);
+  ], {
+    onConflict: 'entry_id' // Concatenate column names into a single string
+  });
   if (error) {
     return new Response(JSON.stringify({ error }), {
       status: 500,
