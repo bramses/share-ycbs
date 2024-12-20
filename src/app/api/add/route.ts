@@ -15,11 +15,11 @@ export async function POST(req: Request) {
     });
   }
   
-  const replaced = await replaceImages(json);
+  // const replaced = await replaceImages(json);
   const { data, error } = await supabase.from(process.env.NEXT_PUBLIC_SUPABASE_TABLE_NAME!).insert([
     {
       "entry_id": entryid,
-      json: { "data": replaced, "type": "graph" },
+      json: { "data": json, "type": "graph" },
       username,
     },
   ]);
