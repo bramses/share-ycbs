@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 // app/u/[id]/page.tsx
 import CopyButton from "@/components/CopyButton";
 
@@ -74,7 +76,7 @@ export default async function Page({ params }: PageProps) {
       </div>
 
       {/* comments = yellow border */}
-      {data.json.data.comments?.map((comment, i) => (
+      {data.json.data.comments?.map((comment: any, i: number) => (
         <div
           key={i}
           className="block max-w-100 p-6 bg-white border border-yellow-500 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mt-4"
@@ -82,7 +84,7 @@ export default async function Page({ params }: PageProps) {
           <p className="font-normal text-gray-700 dark:text-gray-400">
             {comment.comment}
           </p>
-          {comment.penPals?.map((p, j) => (
+          {comment.penPals?.map((p: any, j: number) => (
             <div
               key={j}
               className="block max-w-100 p-4 mt-2 bg-white border border-yellow-500 rounded-lg shadow"
@@ -104,7 +106,7 @@ export default async function Page({ params }: PageProps) {
       ))}
 
       {/* expansions = gray border */}
-      {data.json.data.expansion?.map((expansion, i) => (
+      {data.json.data.expansion?.map((expansion: any, i: number) => (
         <div
           key={i}
           className="block max-w-100 p-6 bg-white border border-gray-400 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mt-4"
@@ -112,7 +114,7 @@ export default async function Page({ params }: PageProps) {
           <p className="font-normal text-gray-700 dark:text-gray-400">
             Parent ID: {expansion.parent}
           </p>
-          {expansion.children?.map((child, j) => (
+          {expansion.children?.map((child: any, j: number) => (
             <div
               key={j}
               className="block max-w-100 p-4 mt-2 bg-white border border-gray-400 rounded-lg shadow"
@@ -134,7 +136,7 @@ export default async function Page({ params }: PageProps) {
       ))}
 
       {/* neighbors (relations) = green border */}
-      {data.json.data.neighbors?.map((neighbor, i) => (
+      {data.json.data.neighbors?.map((neighbor: any, i: number) => (
         <div
           key={i}
           className="block max-w-100 p-6 bg-white border border-green-500 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mt-4"
@@ -161,7 +163,7 @@ export default async function Page({ params }: PageProps) {
       ))}
 
       {/* internal links = red border */}
-      {data.json.data.internalLinks?.map((link, i) => (
+      {data.json.data.internalLinks?.map((link: any, i: number) => (
         <div
           key={i}
           className="block max-w-100 p-6 bg-white border border-red-500 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mt-4"
@@ -169,7 +171,7 @@ export default async function Page({ params }: PageProps) {
           <p className="font-normal text-gray-700 dark:text-gray-400">
             Internal Link: {link.internalLink}
           </p>
-          {link.penPals?.map((penPal, j) => (
+          {link.penPals?.map((penPal: any, j: number) => (
             <div
               key={j}
               className="block max-w-100 p-4 mt-2 bg-white border border-red-500 rounded-lg shadow"
