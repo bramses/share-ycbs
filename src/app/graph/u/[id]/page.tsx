@@ -49,25 +49,8 @@ export default async function Page({ params }: PageProps) {
   const resolvedParams = await params;
   const data = await getData(resolvedParams.id);
 
-  // data.json is what you stored in supabase
-  /* {
-  "data": "Kingdom Hearts 2 - The time Sora sliced through several buildings - YouTube",
-  "metadata": "{\"title\":\"Kingdom Hearts 2 - The time Sora sliced through several buildings - YouTube\",\"author\":\"https://www.youtube.com/watch?v=gIu8qZnAcy8\",\"alias_ids\":[\"6668\"],\"links\":[{\"name\":\"sora vs xemnas\",\"url\":\"https://www.youtube.com/watch?v=npT9BbknuSA\"},{\"name\":\"the building jump part\",\"url\":\"https://youtu.be/_vocDalCY8c?si=IeueWAaTiKDzZmUa&t=130\"},{\"name\":\"vox machina tuns on building\",\"url\":\"https://youtu.be/Pa4FbDg_qnA?si=0XteEayMj_b_axJr&t=221\"}]}",
-  "createdAt": "2024-09-16T02:27:54.725Z",
-  "updatedAt": "2024-09-16T06:46:43.657Z"
-} */
   return (
     <div className="flex flex-col gap-2 m-4">
-      {/* <div
-        className="block max-w-100 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-      >
-        <p className="font-normal text-gray-700 dark:text-gray-400">
-          {JSON.stringify(data.json.data)}
-        </p>
-        <span className="block text-sm text-gray-500 dark:text-gray-400">
-        {makeLinksClickable(JSON.stringify(JSON.parse(data.json.metadata), null, 2))}
-        </span>
-      </div> */}
       <CopyButton id={resolvedParams.id} />
       <div className="block max-w-100 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
         <p className="font-normal text-gray-700 dark:text-gray-400">

@@ -10,7 +10,7 @@ export async function GET(req: Request) {
   const { data, error } = await supabase
     .from(process.env.NEXT_PUBLIC_SUPABASE_TABLE_NAME!)
     .select('*')
-    .eq('username', username); // Query by username
+    .eq('creator', username); // Query by username
   if (error) return NextResponse.json({ error }, { status: 500 });
 
   console.log(data);

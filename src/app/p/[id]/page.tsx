@@ -53,36 +53,6 @@ export default async function Page({ params }: PageProps) {
   return (
     <div className="flex flex-col gap-2 m-4">
       <CopyButton id={resolvedParams.id} />
-      {/* {
-  "entry": {
-    "data": "He’s like how do we stop this demon and willem Defoe hit him with the I don’t know",
-    "metadata": {
-      "title": "thought",
-      "author": "https://ycb-companion.onrender.com/dashboard"
-    }
-  },
-  "comments": [
-    {
-      "data": "from Nosferatu, 2024",
-      "metadata": {
-        "title": "thought",
-        "author": "https://ycb-companion.onrender.com/dashboard"
-      }
-    },
-    {
-      "data": "call it nosfera2",
-      "metadata": {
-        "title": "thought",
-        "author": "https://ycb-companion.onrender.com/dashboard"
-      }
-    }
-  ],
-  "username": "bram"
-} 
- 
- i need a card for this entry and each comment mapped to a card
- 
- */} 
       <Link href={`/${data.json.username}`} className="underline" prefetch={false}>
       See all of {data.json.username}&apos;s entries
       </Link>
