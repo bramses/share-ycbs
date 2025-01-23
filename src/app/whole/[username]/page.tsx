@@ -3,7 +3,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 
 type APIItem = {
   id: number;
@@ -25,7 +24,15 @@ type APIItem = {
   creator: string;
 };
 
-export default function Page({ params }: { params: { username: string } }) {
+export default function Page({ params }: { params: Promise<{ username: string }> }) {
+
+  const [resolvedParams, setResolvedParams] = useState<{ username: string } | null>(null);
+
+  useEffect(() => {
+    params.then(setResolvedParams);
+  }, [params]);
+
+
   const [items, setItems] = useState<APIItem[]>([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -34,6 +41,8 @@ export default function Page({ params }: { params: { username: string } }) {
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [copiedValue, setCopiedValue] = useState("");
 
+  console.log(params);
+
   // fetch the array from your API
   useEffect(() => {
     const doFetch = async () => {
@@ -41,14 +50,15 @@ export default function Page({ params }: { params: { username: string } }) {
         setLoading(true);
         setError("");
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_SITE_URL}/api/get-user?username=bram`,
+          `${process.env.NEXT_PUBLIC_SITE_URL}/api/get-user?username=${resolvedParams!.username}`,
           { cache: "no-store" }
         );
         if (!res.ok) {
           throw new Error("failed to fetch user data");
         }
         const data = await res.json(); // this is an array
-        console.log(data);
+        // sort by created_at desc
+        data.data.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
         setItems(data.data);
       } catch (err: any) {
         setError(String(err));
@@ -57,7 +67,7 @@ export default function Page({ params }: { params: { username: string } }) {
       }
     };
     doFetch();
-  }, [params.username]);
+  }, [resolvedParams]);
 
   if (error) return <div className="m-4">error: {error}</div>;
   if (loading) return <div className="m-4">loading...</div>;
@@ -81,7 +91,7 @@ export default function Page({ params }: { params: { username: string } }) {
 
   async function copySelected() {
     // base64 of the list of IDs
-    const arrStr = JSON.stringify(selectedIds);
+    const arrStr = JSON.stringify({ ids: selectedIds, from: resolvedParams!.username });
     const encoded = btoa(arrStr);
     await navigator.clipboard.writeText(encoded);
     setCopiedValue(encoded);
@@ -89,7 +99,7 @@ export default function Page({ params }: { params: { username: string } }) {
 
   return (
     <div className="m-4 flex flex-col gap-4">
-      <h1 className="text-xl font-bold mb-2">{params.username}&apos;s entries</h1>
+      <h1 className="text-xl font-bold mb-2">{resolvedParams!.username}&apos;s entries</h1>
       <div className="flex gap-4">
         <button onClick={toggleAll} className="border px-2 py-1 rounded">
           {allSelected ? "uncheck all" : "check all"}
@@ -134,7 +144,7 @@ function Card({
   isSelected: boolean;
   onToggle: () => void;
 }) {
-  const { entry, comments, username } = item.json;
+  const { entry, comments } = item.json;
 
   return (
     <div className="border p-4 rounded shadow flex gap-2 items-start">
@@ -150,6 +160,9 @@ function Card({
           />
         )}
         <MetadataDisplay metadata={entry.metadata} />
+        <div className="mt-2 text-sm text-blue-600 underline">
+          {new Date(item.created_at).toLocaleString()}
+        </div>
 
         {/* comments if any */}
         {comments && comments.length > 0 && (
