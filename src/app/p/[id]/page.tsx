@@ -53,7 +53,7 @@ export default async function Page({ params }: PageProps) {
   return (
     <div className="flex flex-col gap-2 m-4">
       <CopyButton id={resolvedParams.id} />
-      <Link href={`/${data.json.username}`} className="underline" prefetch={false}>
+      <Link href={`/u/${data.json.username}`} className="underline" prefetch={false}>
       See all of {data.json.username}&apos;s entries
       </Link>
       <div className="block max-w-100 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
