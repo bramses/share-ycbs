@@ -41,8 +41,6 @@ export default function Page({ params }: { params: Promise<{ username: string }>
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [copiedValue, setCopiedValue] = useState("");
 
-  console.log(params);
-
   // fetch the array from your API
   useEffect(() => {
     const doFetch = async () => {
@@ -109,7 +107,7 @@ export default function Page({ params }: { params: Promise<{ username: string }>
           className="border px-2 py-1 rounded"
           disabled={!selectedIds.length}
         >
-          copy id
+          copy id(s)
         </button>
       </div>
 

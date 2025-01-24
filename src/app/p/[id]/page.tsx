@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 // app/u/[id]/page.tsx
 import CopyButton from "@/components/CopyButton";
 import Link from "next/link";
 
 async function getData(id: string) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/get-upload?id=${id}`,
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/get-upload?entry_id=${id}`,
     {
       cache: "no-store",
     }
@@ -46,13 +45,22 @@ function makeLinksClickable(text: string) {
   });
 }
 
+
+
 export default async function Page({ params }: PageProps) {
   const resolvedParams = await params;
   const data = await getData(resolvedParams.id);
 
+  function copySelected() {
+    // base64 of the list of IDs
+    const arrStr = JSON.stringify({ ids: [data.id], from: data.json.username });
+    const encoded = btoa(arrStr);
+    return encoded;
+  }
+
   return (
     <div className="flex flex-col gap-2 m-4">
-      <CopyButton id={resolvedParams.id} />
+      <CopyButton id={copySelected()} />
       <Link href={`/u/${data.json.username}`} className="underline" prefetch={false}>
       See all of {data.json.username}&apos;s entries
       </Link>
