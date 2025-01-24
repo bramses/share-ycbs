@@ -14,12 +14,14 @@ export async function POST(req: Request) {
     });
   }
   
-  // const replaced = await replaceImages(json);
-  const { data, error } = await supabase.from(process.env.NEXT_PUBLIC_SUPABASE_TABLE_NAME!).upsert([
+  console.log(json);
+  console.log(username);
+  console.log(entryid);
+  const { data, error } = await supabase.from('uploadtoycb').upsert([
     {
       "entry_id": entryid,
-      json: { "data": json, "type": "graph" },
-      username,
+      json,
+      creator: username,
     },
   ], {
     onConflict: 'entry_id', // Concatenate column names into a single string
