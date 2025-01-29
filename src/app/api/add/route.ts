@@ -14,9 +14,6 @@ export async function POST(req: Request) {
     });
   }
   
-  console.log(json);
-  console.log(username);
-  console.log(entryid);
   const { data, error } = await supabase.from('uploadtoycb').upsert([
     {
       "entry_id": entryid,
