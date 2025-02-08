@@ -5,7 +5,6 @@ export async function GET(req: Request) {
     const url = new URL(req.url);
     const username = url.searchParams.get('username')?.toLowerCase(); // Extract the username from the query parameters
     if (!username) return NextResponse.json({ error: 'username required' }, { status: 400 });
-  console.log(username);
 
   const { data, error } = await supabase
     .from(process.env.NEXT_PUBLIC_SUPABASE_TABLE_NAME!)

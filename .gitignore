@@ -41,3 +41,5 @@ yarn-error.log*
 next-env.d.ts
 src/app/share/page.tsx
 src/app/graph/share/page.tsx
+
+commit-hook.mjs

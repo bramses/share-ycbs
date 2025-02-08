@@ -93,6 +93,8 @@ export default function Page({ params }: { params: Promise<{ username: string }>
     const encoded = btoa(arrStr);
     await navigator.clipboard.writeText(encoded);
     setCopiedValue(encoded);
+    // open yourcommonbase.com/?share=base64encoded
+    window.open(`${process.env.NEXT_PUBLIC_COMPANION_URL}/dashboard/?share=${encoded}`, "_blank");
   }
 
   return (
@@ -107,7 +109,7 @@ export default function Page({ params }: { params: Promise<{ username: string }>
           className="border px-2 py-1 rounded"
           disabled={!selectedIds.length}
         >
-          copy id(s)
+          add to your commonbase
         </button>
       </div>
 
